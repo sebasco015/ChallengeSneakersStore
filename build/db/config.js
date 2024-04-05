@@ -8,29 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.close = exports.client = exports.connect = void 0;
-const mongodb_1 = require("mongodb");
-const uri = 'mongodb://drenvio:moM5f3AodwLE5d0A@ac-aemgtkt-shard-00-00.unqyghm.mongodb.net:27017,ac-aemgtkt-shard-00-01.unqyghm.mongodb.net:27017,ac-aemgtkt-shard-00-02.unqyghm.mongodb.net:27017/?replicaSet=atlas-y8oxsk-shard-0&ssl=true&authSource=admin';
-const client = new mongodb_1.MongoClient(uri);
-exports.client = client;
+const mongoose_1 = __importDefault(require("mongoose"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const connect = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield client.connect();
+        yield mongoose_1.default.connect(process.env.MONGODB_CNN, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
         console.log('Connected to MongoDB');
     }
     catch (error) {
         console.error('Error connecting to MongoDB', error);
     }
 });
-exports.connect = connect;
-const close = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield client.close();
-        console.log('Connection to MongoDB closed');
-    }
-    catch (error) {
-        console.error('Error closing connection to MongoDB', error);
-    }
-});
-exports.close = close;
+exports.default = connect;

@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv"
 
-const uri ='mongodb://drenvio:moM5f3AodwLE5d0A@ac-aemgtkt-shard-00-00.unqyghm.mongodb.net:27017,ac-aemgtkt-shard-00-01.unqyghm.mongodb.net:27017,ac-aemgtkt-shard-00-02.unqyghm.mongodb.net:27017/Challenge_KSBC?replicaSet=atlas-y8oxsk-shard-0&ssl=true&authSource=admin';
-    
+dotenv.config
+
 const connect = async () => {
     try{
-        await mongoose.connect(uri,{
+        await mongoose.connect( process.env.MONGODB_CNN,{
             useNewUrlParser: true,
             useUnifiedTopology: true
         } as any)
@@ -14,4 +15,4 @@ const connect = async () => {
     }
 };
 
-export {connect};
+export default connect;

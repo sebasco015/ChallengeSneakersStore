@@ -1,13 +1,15 @@
 import express from 'express';
-import { connect } from './db/config';
+import connect  from './db/config';
 import productRoutes from './routes/productRoutes';
 import priceRoutes from './routes/priceRoutes';
 import clientRoutes from './routes/clientRoutes';
+import { config } from 'dotenv';
 
 const app = express();
 app.use(express.json())
 
-const PORT = 3000;
+config();
+const PORT = process.env.PORT;
 
 connect();
 
